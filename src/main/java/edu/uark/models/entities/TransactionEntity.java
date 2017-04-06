@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
-
 import edu.uark.dataaccess.entities.BaseEntity;
 import edu.uark.models.api.Transaction;
 import edu.uark.models.entities.fieldnames.TransactionFieldNames;
@@ -45,6 +43,8 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     		this.cashierId = cashierId;
     		this.propertyChanged(TransactionFieldNames.CASHIER_ID);
     	}
+    	
+    	return this;
     }
     
     private int totalAmount;
@@ -56,7 +56,10 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     		this.totalAmount = totalAmount;
     		this.propertyChanged(TransactionFieldNames.TOTAL_AMOUNT);
     	}
+    	
+    	return this;
     }
+    
     
     private TransactionClassification classification;
     public TransactionClassification getClassification() {
@@ -67,6 +70,8 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     		this.classification = classification;
     		this.propertyChanged(TransactionFieldNames.CLASSIFICATION);
     	}
+    	
+    	return this;
     }
     
     private LocalDateTime createdOn;
@@ -81,8 +86,10 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	public TransactionEntity setReferenceId(UUID referenceId) {
 		if (!this.referenceId.equals(referenceId)) {
 			this.referenceId = referenceId;
-			this.propertyChanged(TransactionEntity.REFERENCE_ID);
+			this.propertyChanged(TransactionFieldNames.REFERENCE_ID);
 		}
+		
+		return this;
 	}
 	
 	public Transaction synchronize(Transaction apiTransaction) {
@@ -101,7 +108,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		
 		this.cashierId = new UUID(0, 0);
 		this.totalAmount = 0;
-		this.classification = NOT_DEFINED;
+		this.classification = TransactionClassification.NOT_DEFINED;
 		this.createdOn = LocalDateTime.now();
 		this.referenceId = new UUID(0, 0);
 	}
@@ -111,13 +118,13 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		
 		this.cashierId = new UUID(0, 0);
 		this.totalAmount = 0;
-		this.classification = NOT_DEFINED;
+		this.classification = TransactionClassification.NOT_DEFINED;
 		this.createdOn = LocalDateTime.now();
 		this.referenceId = new UUID(0, 0);
 	}
 
 	public TransactionEntity(Transaction apiTransaction) {
-		super(apiTransaction.getId(), new transactionRepository());
+		super(apiTransaction.getId(), new TransactionRepository());
 		
 		this.cashierId = apiTransaction.getCashierId();
 		this.totalAmount = apiTransaction.getTotalAmount();
