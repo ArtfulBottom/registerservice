@@ -8,19 +8,18 @@ import java.util.Map;
 import java.util.UUID;
 
 import edu.uark.dataaccess.entities.BaseEntity;
-import edu.uark.models.api.Transaction;
-import edu.uark.models.entities.fieldnames.TransactionFieldNames;
+import edu.uark.models.api.TransactionEntry;
+import edu.uark.models.entities.fieldnames.TransactionEntryFieldNames;
 import edu.uark.models.enums.TransactionClassification;
-import edu.uark.models.repositories.TransactionRepository;
+import edu.uark.models.repositories.TransactionEntryRepository;
 
-public class TransactionEntity extends BaseEntity<TransactionEntity> {
+public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 	@Override
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
-		this.cashierId = ((UUID) rs.getObject(TransactionFieldNames.CASHIER_ID));
-		this.totalAmount = rs.getInt(TransactionFieldNames.TOTAL_AMOUNT);
-		this.classification = TransactionClassification.map(rs.getInt(TransactionFieldNames.CLASSIFICATION));
-		this.createdOn = rs.getTimestamp(TransactionFieldNames.CREATED_ON).toLocalDateTime();
-		this.referenceId = ((UUID) rs.getObject(TransactionFieldNames.REFERENCE_ID));
+		this.transactionId = ((UUID) rs.getObject(TransactionEntryFieldNames.TRANSACTION_ID));
+		this.productId = ((UUID) rs.getObject(TransactionEntryFieldNames.PRODUCT_ID));
+		this.quantity = rs.getInt(TransactionEntryFieldNames.QUANTITY);
+		this.unitPrice = rs.getBigDecimal(TransactionEntryFieldNames.UNIT_PRICE);
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     public UUID getCashierId() {
     	return this.cashierId;
     }
-    public TransactionEntity setCashierId(UUID cashierId) {
+    public TransactionEntryEntity setCashierId(UUID cashierId) {
     	if (!this.cashierId.equals(cashierId)) {
     		this.cashierId = cashierId;
     		this.propertyChanged(TransactionFieldNames.CASHIER_ID);
@@ -51,7 +50,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     public int getTotalAmount() {
     	return this.totalAmount;
     }
-    public TransactionEntity setTotalAmount(int totalAmount) {
+    public TransactionEntryEntity setTotalAmount(int totalAmount) {
     	if (this.totalAmount != totalAmount) {
     		this.totalAmount = totalAmount;
     		this.propertyChanged(TransactionFieldNames.TOTAL_AMOUNT);
@@ -65,7 +64,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     public TransactionClassification getClassification() {
     	return this.classification;
     }
-    public TransactionEntity setClassification(TransactionClassification classification) {
+    public TransactionEntryEntity setClassification(TransactionClassification classification) {
     	if (this.classification != classification) {
     		this.classification = classification;
     		this.propertyChanged(TransactionFieldNames.CLASSIFICATION);
@@ -83,7 +82,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	public UUID getReferenceId() {
 		return this.referenceId;
 	}
-	public TransactionEntity setReferenceId(UUID referenceId) {
+	public TransactionEntryEntity setReferenceId(UUID referenceId) {
 		if (!this.referenceId.equals(referenceId)) {
 			this.referenceId = referenceId;
 			this.propertyChanged(TransactionFieldNames.REFERENCE_ID);
@@ -103,8 +102,8 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		return apiTransaction;
 	}
 	
-	public TransactionEntity() {
-		super(new TransactionRepository());
+	public TransactionEntryEntity() {
+		super(new TransactionEntryRepository());
 		
 		this.cashierId = new UUID(0, 0);
 		this.totalAmount = 0;
@@ -113,8 +112,8 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		this.referenceId = new UUID(0, 0);
 	}
 	
-	public TransactionEntity(UUID id) {
-		super(id, new TransactionRepository());
+	public TransactionEntryEntity(UUID id) {
+		super(id, new TransactionEntryRepository());
 		
 		this.cashierId = new UUID(0, 0);
 		this.totalAmount = 0;
@@ -123,13 +122,14 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		this.referenceId = new UUID(0, 0);
 	}
 
-	public TransactionEntity(Transaction apiTransaction) {
-		super(apiTransaction.getId(), new TransactionRepository());
+	public TransactionEntryEntity(Transaction apiTransaction) {
+		super(apiTransaction.getId(), new TransactionEntryRepository());
 		
 		this.cashierId = apiTransaction.getCashierId();
 		this.totalAmount = apiTransaction.getTotalAmount();
 		this.classification = apiTransaction.getClassification();
 		this.referenceId = apiTransaction.getReferenceId();
+
 		this.createdOn = LocalDateTime.now();
 	}
 }
