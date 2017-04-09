@@ -68,7 +68,29 @@ public class Product {
 		
 		return this;
 	}
-	
+
+    private double price;
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public Product setPrice(double price) {
+        this.price = price;
+        return this;
+    }
+
+    private boolean active;
+
+    public boolean getActive() {
+        return this.active;
+    }
+
+    public Product setActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+
 	public Product() {
 		this.count = -1;
 		this.lookupCode = "";
@@ -76,15 +98,18 @@ public class Product {
 		this.createdOn = LocalDateTime.now();
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = ProductApiRequestStatus.OK;
-	}
-	
-	public Product(ProductEntity productEntity) {
+        this.price = 0.0;
+        this.active = false;
+    }
+
+    public Product(ProductEntity productEntity) {
 		this.id = productEntity.getId();
 		this.count = productEntity.getCount();
 		this.createdOn = productEntity.getCreatedOn();
 		this.lookupCode = productEntity.getLookupCode();
-
-		this.apiRequestMessage = StringUtils.EMPTY;
-		this.apiRequestStatus = ProductApiRequestStatus.OK;
+        this.active = productEntity.getActive();
+        this.price = productEntity.getPrice();
+        this.apiRequestMessage = StringUtils.EMPTY;
+        this.apiRequestStatus = ProductApiRequestStatus.OK;
 	}
 }

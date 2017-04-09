@@ -20,6 +20,7 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		this.lookupCode = rs.getString(ProductFieldNames.LOOKUP_CODE);
 		this.count = rs.getInt(ProductFieldNames.COUNT);
 		this.createdOn = rs.getTimestamp(ProductFieldNames.CREATED_ON).toLocalDateTime();
+
 	}
 
 	@Override
@@ -65,15 +66,47 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	public Product synchronize(Product apiProduct) {
 		this.setCount(apiProduct.getCount());
 		this.setLookupCode(apiProduct.getLookupCode());
-		
+		this.setActive(apiProduct.getActive());
+		this.setPrice(apiProduct.getPrice());
 		apiProduct.setCreatedOn(this.createdOn);
 		
 		return apiProduct;
 	}
-	
+
+	private double price;
+
+	public double getPrice() {
+		return this.price;
+	}
+
+	public ProductEntity setPrice(double price) {
+		if (this.price != price) {
+			this.price = price;
+			this.propertyChanged(ProductFieldNames.PRICE);
+		}
+
+		return this;
+	}
+
+	private boolean active;
+
+	public boolean getActive() {
+		return this.active;
+	}
+
+	public ProductEntity setActive(boolean active) {
+		if (this.active != active) {
+			this.active = active;
+			this.propertyChanged(ProductFieldNames.ACTIVE);
+		}
+
+		return this;
+	}
+
 	public ProductEntity() {
 		super(new ProductRepository());
-		
+		this.active = false;
+		this.price = 0.0;
 		this.count = -1;
 		this.lookupCode = StringUtils.EMPTY;
 		this.createdOn = LocalDateTime.now();
@@ -81,7 +114,8 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 	
 	public ProductEntity(UUID id) {
 		super(id, new ProductRepository());
-		
+		this.active = false;
+		this.price = 0.0;
 		this.count = -1;
 		this.lookupCode = StringUtils.EMPTY;
 		this.createdOn = LocalDateTime.now();
@@ -89,10 +123,10 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 
 	public ProductEntity(Product apiProduct) {
 		super(apiProduct.getId(), new ProductRepository());
-		
+		this.active = apiProduct.getActive();
+		this.price = apiProduct.getPrice();
 		this.count = apiProduct.getCount();
 		this.lookupCode = apiProduct.getLookupCode();
-
 		this.createdOn = LocalDateTime.now();
 	}
 }
