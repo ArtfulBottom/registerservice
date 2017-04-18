@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.UUID;
-import java.math.BigDecimal;
 
 import edu.uark.dataaccess.entities.BaseEntity;
 import edu.uark.models.api.TransactionEntry;
@@ -17,7 +16,7 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 		this.transactionId = ((UUID) rs.getObject(TransactionEntryFieldNames.TRANSACTION_ID));
 		this.productId = ((UUID) rs.getObject(TransactionEntryFieldNames.PRODUCT_ID));
 		this.quantity = rs.getInt(TransactionEntryFieldNames.QUANTITY);
-		this.unitPrice = rs.getBigDecimal(TransactionEntryFieldNames.UNIT_PRICE);
+		this.unitPrice = rs.getFloat(TransactionEntryFieldNames.UNIT_PRICE);
 	}
 
 	@Override
@@ -69,11 +68,11 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
     	return this;
     }
     
-    private BigDecimal unitPrice;
-    public BigDecimal getUnitPrice() {
+    private double unitPrice;
+    public double getUnitPrice() {
     	return this.unitPrice;
     }
-    public TransactionEntryEntity setUnitPrice(BigDecimal unitPrice) {
+    public TransactionEntryEntity setUnitPrice(double unitPrice) {
     	if (this.unitPrice != unitPrice) {
     		this.unitPrice = unitPrice;
     		this.propertyChanged(TransactionEntryFieldNames.UNIT_PRICE);
@@ -97,7 +96,7 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 		this.transactionId = new UUID(0, 0);
 		this.productId = new UUID(0, 0);
 		this.quantity = 0;
-		this.unitPrice = new BigDecimal("0.00");
+		this.unitPrice = 0.00;
 	}
 	
 	public TransactionEntryEntity(UUID id) {
@@ -106,7 +105,7 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 		this.transactionId = new UUID(0, 0);
 		this.productId = new UUID(0, 0);
 		this.quantity = 0;
-		this.unitPrice = new BigDecimal("0.00");
+		this.unitPrice = 0.00;
 	}
 
 	public TransactionEntryEntity(TransactionEntry apiTransactionEntry) {

@@ -45,11 +45,11 @@ public class TransactionEntry {
     	return this;
     }
     
-    private BigDecimal unitPrice;
-    public BigDecimal getUnitPrice() {
+    private double unitPrice;
+    public double getUnitPrice() {
     	return this.unitPrice;
     }
-    public TransactionEntry setUnitPrice(BigDecimal unitPrice) {
+    public TransactionEntry setUnitPrice(double unitPrice) {
     	this.unitPrice = unitPrice;
     	return this;
     }
@@ -83,7 +83,7 @@ public class TransactionEntry {
 		this.transactionId = new UUID(0, 0);
 		this.productId = new UUID(0,0);
 		this.quantity = 0;
-		this.unitPrice = new BigDecimal("0.00");
+		this.unitPrice = 0.00;
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = TransactionApiRequestStatus.OK;
 	}
