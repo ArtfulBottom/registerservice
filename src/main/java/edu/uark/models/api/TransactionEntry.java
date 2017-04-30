@@ -1,7 +1,6 @@
 package edu.uark.models.api;
 
 import java.util.UUID;
-import java.math.BigDecimal;
 
 import org.apache.commons.lang3.StringUtils;
 
