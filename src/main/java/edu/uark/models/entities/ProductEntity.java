@@ -20,7 +20,8 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		this.lookupCode = rs.getString(ProductFieldNames.LOOKUP_CODE);
 		this.count = rs.getInt(ProductFieldNames.COUNT);
 		this.createdOn = rs.getTimestamp(ProductFieldNames.CREATED_ON).toLocalDateTime();
-
+		this.price = rs.getDouble(ProductFieldNames.PRICE);
+		this.active = rs.getBoolean(ProductFieldNames.ACTIVE);
 	}
 
 	@Override
@@ -28,6 +29,8 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		record.put(ProductFieldNames.LOOKUP_CODE, this.lookupCode);
 		record.put(ProductFieldNames.COUNT, this.count);
 		record.put(ProductFieldNames.CREATED_ON, Timestamp.valueOf(this.createdOn));
+		record.put(ProductFieldNames.PRICE, this.price);
+		record.put(ProductFieldNames.ACTIVE, this.active);
 		
 		return record;
 	}
@@ -57,6 +60,32 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		
 		return this;
 	}
+	
+	private double price;
+	public double getPrice() {
+		return this.price;
+	}
+	public ProductEntity setPrice(double price) {
+		if (this.price != price) {
+			this.price = price;
+			this.propertyChanged(ProductFieldNames.PRICE);
+		}
+
+		return this;
+	}
+
+	private boolean active;
+	public boolean getActive() {
+		return this.active;
+	}
+	public ProductEntity setActive(boolean active) {
+		if (this.active != active) {
+			this.active = active;
+			this.propertyChanged(ProductFieldNames.ACTIVE);
+		}
+
+		return this;
+	}
 
 	private LocalDateTime createdOn;
 	public LocalDateTime getCreatedOn() {
@@ -71,36 +100,6 @@ public class ProductEntity extends BaseEntity<ProductEntity> {
 		apiProduct.setCreatedOn(this.createdOn);
 		
 		return apiProduct;
-	}
-
-	private double price;
-
-	public double getPrice() {
-		return this.price;
-	}
-
-	public ProductEntity setPrice(double price) {
-		if (this.price != price) {
-			this.price = price;
-			this.propertyChanged(ProductFieldNames.PRICE);
-		}
-
-		return this;
-	}
-
-	private boolean active;
-
-	public boolean getActive() {
-		return this.active;
-	}
-
-	public ProductEntity setActive(boolean active) {
-		if (this.active != active) {
-			this.active = active;
-			this.propertyChanged(ProductFieldNames.ACTIVE);
-		}
-
-		return this;
 	}
 
 	public ProductEntity() {

@@ -45,6 +45,24 @@ public class Product {
 		return this;
 	}
 	
+    private double price;
+    public double getPrice() {
+        return this.price;
+    }
+    public Product setPrice(double price) {
+        this.price = price;
+        return this;
+    }
+
+    private boolean active;
+    public boolean getActive() {
+        return this.active;
+    }
+    public Product setActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+	
 	private ProductApiRequestStatus apiRequestStatus;
 	public ProductApiRequestStatus getApiRequestStatus() {
 		return this.apiRequestStatus;
@@ -68,28 +86,6 @@ public class Product {
 		
 		return this;
 	}
-
-    private double price;
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public Product setPrice(double price) {
-        this.price = price;
-        return this;
-    }
-
-    private boolean active;
-
-    public boolean getActive() {
-        return this.active;
-    }
-
-    public Product setActive(boolean active) {
-        this.active = active;
-        return this;
-    }
 
 	public Product() {
 		this.count = -1;
