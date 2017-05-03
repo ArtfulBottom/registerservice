@@ -17,7 +17,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 	@Override
 	protected void fillFromRecord(ResultSet rs) throws SQLException {
 		this.cashierId = ((UUID) rs.getObject(TransactionFieldNames.CASHIER_ID));
-		this.totalAmount = rs.getInt(TransactionFieldNames.TOTAL_AMOUNT);
+		this.totalAmount = rs.getDouble(TransactionFieldNames.TOTAL_AMOUNT);
 		this.classification = TransactionClassification.map(rs.getInt(TransactionFieldNames.CLASSIFICATION));
 		this.createdOn = rs.getTimestamp(TransactionFieldNames.CREATED_ON).toLocalDateTime();
 		this.referenceId = ((UUID) rs.getObject(TransactionFieldNames.REFERENCE_ID));
@@ -47,11 +47,11 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
     	return this;
     }
     
-    private int totalAmount;
-    public int getTotalAmount() {
+    private double totalAmount;
+    public double getTotalAmount() {
     	return this.totalAmount;
     }
-    public TransactionEntity setTotalAmount(int totalAmount) {
+    public TransactionEntity setTotalAmount(double totalAmount) {
     	if (this.totalAmount != totalAmount) {
     		this.totalAmount = totalAmount;
     		this.propertyChanged(TransactionFieldNames.TOTAL_AMOUNT);
@@ -117,7 +117,7 @@ public class TransactionEntity extends BaseEntity<TransactionEntity> {
 		super(id, new TransactionRepository());
 		
 		this.cashierId = new UUID(0, 0);
-		this.totalAmount = 0;
+		this.totalAmount = 0.0;
 		this.classification = TransactionClassification.NOT_DEFINED;
 		this.createdOn = LocalDateTime.now();
 		this.referenceId = new UUID(0, 0);

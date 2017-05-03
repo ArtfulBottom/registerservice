@@ -28,11 +28,11 @@ public class Transaction {
     	return this;
     }
     
-    private int totalAmount;
-    public int getTotalAmount() {
+    private double totalAmount;
+    public double getTotalAmount() {
     	return this.totalAmount;
     }
-    public Transaction setTotalAmount(int totalAmount) {
+    public Transaction setTotalAmount(double totalAmount) {
     	this.totalAmount = totalAmount;
     	return this;
     }
@@ -90,7 +90,7 @@ public class Transaction {
 	
 	public Transaction() {
 		this.cashierId = new UUID(0, 0);
-		this.totalAmount = 0;
+		this.totalAmount = 0.0;
 		this.classification = TransactionClassification.NOT_DEFINED;
 		this.createdOn = LocalDateTime.now();
 		this.referenceId = new UUID(0, 0);
