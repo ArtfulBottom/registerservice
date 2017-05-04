@@ -111,9 +111,9 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
 	public TransactionEntryEntity(TransactionEntry apiTransactionEntry) {
 		super(apiTransactionEntry.getId(), new TransactionEntryRepository());
 		
-		this.setTransactionId(apiTransactionEntry.getTransactionId());
-		this.setProductId(apiTransactionEntry.getProductId());
-		this.setQuantity(apiTransactionEntry.getQuantity());
-		this.setUnitPrice(apiTransactionEntry.getUnitPrice());
+		this.transactionId = apiTransactionEntry.getTransactionId();
+		this.productId = apiTransactionEntry.getProductId();
+		this.quantity = apiTransactionEntry.getQuantity();
+		this.unitPrice = apiTransactionEntry.getUnitPrice();
 	}
 }
