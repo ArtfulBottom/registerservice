@@ -47,8 +47,8 @@ public class TransactionEntryEntity extends BaseEntity<TransactionEntryEntity> {
     	return this.productId;
     }
     public TransactionEntryEntity setProductId(UUID productId) {
-    	if (!this.productId.equals(transactionId)) {
-    		this.productId = transactionId;
+    	if (!this.productId.equals(productId)) {
+    		this.productId = productId;
     		this.propertyChanged(TransactionEntryFieldNames.PRODUCT_ID);
     	}
     	
