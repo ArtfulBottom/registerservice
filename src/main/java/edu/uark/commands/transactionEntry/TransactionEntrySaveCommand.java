@@ -15,6 +15,7 @@ public class TransactionEntrySaveCommand implements ResultCommandInterface<Trans
 	public TransactionEntry execute() {
 		if(this.apiTransactionEntry.getTransactionId() == null || this.getApiTransacitonEntry().getTransactionId().equals(new UUID(0,0)))
 		{
+			System.out.println("RETURNING");
 			return (new TransactionEntry()).setApiRequestStatus(TransactionApiRequestStatus.INVALID_INPUT).
 					setApiRequestMessage("TransactionID fields may not be empty.");
 		}
