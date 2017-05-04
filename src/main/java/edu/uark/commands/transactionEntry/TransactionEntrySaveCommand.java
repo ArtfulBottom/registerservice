@@ -13,7 +13,6 @@ import edu.uark.models.repositories.interfaces.TransactionEntryRepositoryInterfa
 public class TransactionEntrySaveCommand implements ResultCommandInterface<TransactionEntry>{
 	@Override
 	public TransactionEntry execute() {
-		System.out.println(this.getApiTransacitonEntry().getQuantity());
 		if(this.apiTransactionEntry.getTransactionId() == null || this.getApiTransacitonEntry().getTransactionId().equals(new UUID(0,0)))
 		{
 			return (new TransactionEntry()).setApiRequestStatus(TransactionApiRequestStatus.INVALID_INPUT).
@@ -35,7 +34,7 @@ public class TransactionEntrySaveCommand implements ResultCommandInterface<Trans
 		{
 			this.apiTransactionEntry.setId(transactionEntryEntity.getId());
 		}
-		
+		System.out.println(transactionEntryEntity.getQuantity());
 		return this.apiTransactionEntry;
 	}
 	
