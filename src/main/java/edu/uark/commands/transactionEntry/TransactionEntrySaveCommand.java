@@ -34,7 +34,7 @@ public class TransactionEntrySaveCommand implements ResultCommandInterface<Trans
 		{
 			this.apiTransactionEntry.setId(transactionEntryEntity.getId());
 		}
-		System.out.println("quantity = " + transactionEntryEntity.getQuantity());
+		
 		return this.apiTransactionEntry;
 	}
 	
